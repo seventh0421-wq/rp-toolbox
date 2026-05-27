@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny Catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    match /stats/{statId} {
+      allow read: if true;
+      allow create: if isValidId(statId) 
+        && incoming().keys().hasAll(['count']) 
+        && incoming().keys().size() == 1
+        && incoming().count is int 
+        && incoming().count >= 0;
+      allow update: if isValidId(statId)
+        && incoming().keys().hasAll(['count'])
+        && incoming().keys().size() == 1
+        && incoming().count is int
+        && incoming().count == existing().count + 1;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    function incoming() {
+      return request.resource.data;
+    }
+    function existing() {
+      return resource.data;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "entities": {
+    "Stat": {
+      "title": "Usage Statistics",
+      "description": "Represents real-time click and usage counters",
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "Cumulative click/opening count"
+        }
+      },
+      "required": ["count"]
+    }
+  },
+  "firestore": {
+    "/stats/{statId}": {
+      "schema": "Stat",
+      "description": "Store live usage metrics for the application as a whole, plus individual tools."
+    }
+  }
+}

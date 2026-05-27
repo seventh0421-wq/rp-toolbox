@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Microsoft JhengHei", "PingFang TC", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cinzel", "Noto Serif TC", "Georgia", ui-serif, serif;
+  
+  /* Custom FFXIV themed colors */
+  --color-ffxiv-black: #0c0c0e;      /* Immersive UI absolute black background */
+  --color-ffxiv-dark: #111112;       /* Deeper void grey for headers/previews */
+  --color-ffxiv-card: #1c1c1e;       /* Card background */
+  --color-ffxiv-gold: #c5a059;       /* Classic FFXIV active gold */
+  --color-ffxiv-gold-light: #e6cb95; /* Lighter shimmering gold */
+  --color-ffxiv-gold-dark: #917034;  /* Ancient brass/gold */
+  --color-ffxiv-slate: #3d3d3f;      /* Sleek dark frame border */
+  --color-ffxiv-slate-light: #48484a;/* Highlighting steel hover */
+  --color-ffxiv-blue: #0f4c81;       /* Aetherial blue */
+  --color-ffxiv-blue-light: #3a8cdb; /* Aetherial glow */
+  --color-ffxiv-footer: #050608;     /* Immersive footer background */
+  --color-ffxiv-badge: #101925;      /* Active badge background */
+  
+  --color-stone-150: #eae8e1;
+}
+
+.light {
+  /* Elegant parchment scholarly theme */
+  --color-ffxiv-black: #f6f5f0;       /* Main page bg */
+  --color-ffxiv-dark: #eee9dc;        /* Accent panels / search header */
+  --color-ffxiv-card: #ffffff;        /* Pure crisp white card background */
+  --color-ffxiv-slate: #cfcaba;       /* Warm bronze-slate border */
+  --color-ffxiv-slate-light: #b5ada0; /* Warm highlight border hover */
+  --color-ffxiv-footer: #eae5d7;      /* Warm accent footer bg */
+  --color-ffxiv-badge: #e0f2fe;       /* Soft sky blue badge */
+
+  /* Gold adjustments for stunning high contrast on light backgrounds */
+  --color-ffxiv-gold: #9c7323;        /* Darker high-fidelity gold */
+  --color-ffxiv-gold-light: #6e4d10;  /* Intense deep brass gold */
+  --color-ffxiv-gold-dark: #583c07;   /* Vintage bronze-gold */
+  
+  /* Redefine base tailwind utilities inside light mode so everything translates seamlessly */
+  --color-zinc-950: #fbfbfa;          /* Elegant soft backgrounds */
+  --color-zinc-900: #eee9dc;          /* Accent boxes inside details */
+  --color-zinc-850: #cfcaba;          /* Borders scale */
+  --color-zinc-800: #cfcaba;
+  
+  /* Map light-text to professional high contrast dark-text variables */
+  --color-slate-100: #1c1917;         /* stone-900 */
+  --color-white: #0a0a0c;             /* deep slate-950 */
+  
+  --color-stone-100: #0a0a0c;
+  --color-stone-150: #1c1917;
+  --color-stone-200: #1c1917;
+  --color-stone-250: #292524;
+  --color-stone-300: #3a3a3c;
+  --color-stone-400: #4a4a4d;
+  --color-stone-500: #5f5f63;
+  --color-stone-600: #7a7a7f;
+  
+  /* Soft ambient opacity to make light mode readable */
+  --bg-ambience-opacity: 0.08;
+}
+
+@layer utilities {
+  /* FFXIV-inspired metallic and frame borders */
+  .ffxiv-gold-gradient {
+    background: linear-gradient(135deg, var(--color-ffxiv-gold-dark) 0%, var(--color-ffxiv-gold) 50%, var(--color-ffxiv-gold-light) 100%);
+  }
+  
+  .ffxiv-border {
+    position: relative;
+    border: 1px solid var(--color-ffxiv-slate);
+  }
+  
+  .ffxiv-gold-border {
+    border: 1px solid var(--color-ffxiv-gold-dark);
+    box-shadow: 0 0 10px rgba(145, 112, 52, 0.15), inset 0 0 8px rgba(145, 112, 52, 0.1);
+  }
+
+  .aether-glow {
+    box-shadow: 0 0 15px rgba(58, 140, 219, 0.3);
+  }
+  
+  /* Beautiful custom scrollbar in FFXIV design */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-ffxiv-black);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ffxiv-slate);
+    border-radius: 3px;
+    border: 1px solid rgba(197, 160, 89, 0.3);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ffxiv-gold-dark);
+  }
+}
+
+body {
+  background-color: var(--color-ffxiv-black);
+  color: var(--color-slate-100);
+  font-family: var(--font-sans);
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+.font-ffxiv-serif {
+  font-family: var(--font-serif);
+}
+
