@@ -1,6 +1,6 @@
 {
-  "name": "FF14 RP 工具導航站",
-  "description": "專為最終幻想XIV (FFXIV) 角色扮演玩家打造的輔導工具整合及導流入口入口網站，提供精美卡片式展示與外部跳轉連結。",
+  "name": "FFXIV TC RP工具箱",
+  "description": "專為最終幻想XIV (FFXIV) 角色扮演繁體中文社群打造的客製化輔助工具整合與導流入口網站，提供精美卡片式展示與外部一鍵跳轉。",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

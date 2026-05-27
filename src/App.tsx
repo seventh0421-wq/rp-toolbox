@@ -182,14 +182,19 @@ export default function App() {
         
         {/* Subtle subtext logo */}
         <div className="inline-flex items-center gap-2 bg-ffxiv-gold/10 px-4 py-1.5 rounded-full border border-ffxiv-gold-dark/30 mb-4 select-none">
-          <Sparkles className="w-3.5 h-3.5 text-ffxiv-gold animate-pulse" />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="w-3.5 h-3.5 text-ffxiv-gold animate-pulse">
+            <path d="M224,64H176V56a24,24,0,0,0-24-24H104A24,24,0,0,0,80,56v8H32A16,16,0,0,0,16,80V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V80A16,16,0,0,0,224,64ZM96,56a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM224,80v32H192v-8a8,8,0,0,0-16,0v8H80v-8a8,8,0,0,0-16,0v8H32V80Zm0,112H32V128H64v8a8,8,0,0,0,16,0v-8h96v8a8,8,0,0,0,16,0v-8h32v64Z" />
+          </svg>
           <span className="text-sm tracking-[0.2em] text-[#dfc38f] uppercase font-mono font-bold">
             FFXIV TC RP Companion Portal
           </span>
         </div>
 
         {/* Cinematic Game-Style Title */}
-        <div className="space-y-2">
+        <div className="space-y-3 flex flex-col items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="w-14 h-14 text-[#dfc38f] drop-shadow-[0_0_15px_rgba(197,160,89,0.35)] animate-pulse mb-1">
+            <path d="M224,64H176V56a24,24,0,0,0-24-24H104A24,24,0,0,0,80,56v8H32A16,16,0,0,0,16,80V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V80A16,16,0,0,0,224,64ZM96,56a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM224,80v32H192v-8a8,8,0,0,0-16,0v8H80v-8a8,8,0,0,0-16,0v8H32V80Zm0,112H32V128H64v8a8,8,0,0,0,16,0v-8h96v8a8,8,0,0,0,16,0v-8h32v64Z" />
+          </svg>
           <h1 className="text-3xl md:text-5xl font-medium text-white tracking-[0.05em]" style={{ fontFamily: '"Noto Serif TC", serif' }}>
             FFXIV TC RP工具箱
           </h1>
