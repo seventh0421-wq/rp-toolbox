@@ -158,7 +158,8 @@ export default function App() {
       const matchesSearch = 
         tool.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         tool.enTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        tool.description.toLowerCase().includes(searchQuery.toLowerCase());
+        tool.features.some(feat => feat.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (tool.description && tool.description.toLowerCase().includes(searchQuery.toLowerCase()));
       
       return matchesSearch;
     });
@@ -388,44 +389,56 @@ export default function App() {
                     <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-ffxiv-gold/60 to-transparent opacity-80 group-hover:via-ffxiv-gold-light group-hover:opacity-100 transition-all duration-300" />
 
                     {/* Visual Card Header & Category Badge */}
-                    <div className="p-5 pb-3 flex flex-col items-center text-center">
-                      <div className="flex flex-col items-center justify-center gap-1.5 mb-2 w-full">
-                        <div className="flex items-center justify-center gap-1 select-none text-sm font-mono text-zinc-350">
-                          <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${tool.id === 'rp-pos' ? 'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]' : 'bg-emerald-500'}`}></span>
-                          <span>{tool.id === 'rp-pos' ? '測試中' : '已上線'}</span>
-                        </div>
-                        <h3 className="text-base font-bold text-stone-100 group-hover:text-ffxiv-gold-light transition-colors font-ffxiv-serif tracking-wider text-center">
-                          {tool.title}
-                        </h3>
+                    <div className="p-6 pb-2 flex flex-col items-center text-center">
+                      <div className="flex items-center justify-center gap-1.5 select-none text-xs font-mono font-semibold tracking-wider uppercase mb-2">
+                        <span className={`inline-flex items-center px-4 py-0.5 rounded-full border text-xs gap-1.5 shadow-[0_2px_8px_rgba(0,0,0,0.4)]
+                          ${tool.id === 'rp-pos' 
+                            ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' 
+                            : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                          }`}
+                        >
+                          <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${tool.id === 'rp-pos' ? 'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]' : 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]'}`} />
+                          {tool.id === 'rp-pos' ? '測試中' : '已上線'}
+                        </span>
                       </div>
-                      
-                      <p className="text-sm text-stone-500 font-mono text-center tracking-wide uppercase border-b border-zinc-900 pb-2 w-full">
-                        {tool.enTitle}
-                      </p>
 
-                      <p className="text-sm text-stone-400 leading-relaxed mt-3 text-center font-sans">
-                        {tool.description}
+                      <h3 className="text-lg font-bold text-stone-100 group-hover:text-ffxiv-gold-light transition-colors font-ffxiv-serif tracking-wider text-center mt-1">
+                        {tool.title}
+                      </h3>
+                      
+                      <p className="text-xs text-stone-500 font-mono text-center tracking-widest uppercase border-b border-zinc-900 pb-3 w-full mt-1">
+                        {tool.enTitle}
                       </p>
                     </div>
 
-                    {/* Miniature preview & information block */}
-                    <div className="px-5 py-3.5 bg-zinc-950/60 border-t border-b border-zinc-900/60 text-sm space-y-2 select-none text-center flex flex-col items-center">
-                      <div className="flex justify-between items-center text-stone-500 w-full">
-                        <span>目前通訊狀態</span>
-                        <span className="font-semibold text-stone-350">{tool.statusText}</span>
+                    {/* Features highlights vertical premium list */}
+                    <div className="px-6 py-4 flex-grow flex flex-col justify-center">
+                      <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#dfc38f]/50 mb-4 flex items-center justify-center gap-1.5 select-none font-mono">
+                        <span className="w-1 h-1 bg-ffxiv-gold rotate-45 inline-block"></span>
+                        推薦亮點 ✦ HIGHLIGHTS
+                        <span className="w-1 h-1 bg-ffxiv-gold rotate-45 inline-block"></span>
                       </div>
-                      
-                      {/* Features highlights bullet links */}
-                      <div className="text-center space-y-1 w-full pt-1">
-                        <span className="text-sm uppercase tracking-wider text-stone-600 block">功能推薦亮點</span>
-                        <div className="flex flex-wrap justify-center gap-1 mt-1">
-                          {tool.features.map((feat, i) => (
-                            <span key={i} className="text-sm bg-zinc-900 border border-zinc-850 px-1.5 py-0.5 rounded text-stone-400 truncate max-w-full font-sans">
-                              ✦ {feat}
+                      <ul className="space-y-2.5 font-sans w-full max-w-[280px] mx-auto text-left">
+                        {tool.features.map((feat, i) => (
+                          <li key={i} className="flex items-start gap-2.5 text-stone-300 group/item">
+                            <span 
+                              className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 bg-ffxiv-gold/15 border border-ffxiv-gold/50 group-hover/item:border-ffxiv-gold group-hover/item:bg-ffxiv-gold transition-all duration-200" 
+                              style={{ transform: 'rotate(45deg)' }} 
+                            />
+                            <span className="text-[13px] tracking-wide leading-relaxed text-stone-350 font-medium group-hover/item:text-ffxiv-gold-light transition-colors duration-200">
+                              {feat}
                             </span>
-                          ))}
-                        </div>
-                      </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Miniature preview & status stripe */}
+                    <div className="px-5 py-2.5 bg-zinc-950/65 border-t border-b border-zinc-900/60 text-xs font-mono select-none flex items-center justify-between gap-2">
+                      <span className="text-stone-550 tracking-wider">STATUS:</span>
+                      <span className="font-semibold text-stone-350 truncate max-w-[220px]" title={tool.statusText}>
+                        {tool.statusText}
+                      </span>
                     </div>
 
                     {/* Actions button footer */}
