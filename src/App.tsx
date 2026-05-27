@@ -632,12 +632,8 @@ export default function App() {
                         曾是伊修加爾德冷酷的暗殺者「<span className="text-stone-100 font-medium">清道夫</span>」，臉上的疤痕刻劃著染血過往。叛逃瀕死時被無名恩人救下，從此在黑夜中無聲等候。
                       </p>
                       
-                      <p className="text-stone-300">
-                        如今他收起殺意，換上筆挺西裝，化身俱樂部裡的公關。在「<span className="text-stone-100 font-medium">斯文敗類</span>」的慵懶下，藏著反差溫柔。
-                      </p>
-                      
                       <p className="text-[#dfc38f] italic font-ffxiv-serif pl-2 border-l-2 border-[#c5a059]/40 tracking-wider">
-                        「別緊張，在這裡，我只帶走你的寂寞。」
+                        「既然你敲了死神的門，就別想走了。」
                       </p>
                     </div>
                   </div>
