@@ -27,7 +27,8 @@ import {
   UserCheck,
   Sun,
   Moon,
-  Copy
+  Copy,
+  Calendar
 } from 'lucide-react';
 
 import { ToolItem, ToolCategory } from './types';
@@ -241,25 +242,36 @@ export default function App() {
             </div>
           </div>
 
-          {/* Status 2: Eorzea Time */}
-          <div className="border-b sm:border-b-0 lg:border-r border-ffxiv-slate/40 pb-3 sm:pb-0 h-full flex flex-col justify-center items-center text-center lg:px-2">
-            <div className="flex justify-center items-center gap-1.5 text-ffxiv-gold">
+          {/* Status 2: Eorzea & Local Time */}
+          <div className="border-b sm:border-b-0 lg:border-r border-ffxiv-slate/40 pb-3 sm:pb-0 h-full flex flex-col justify-center items-center text-center lg:px-2 select-none">
+            <div className="flex justify-center items-center gap-1.5 text-ffxiv-gold mb-1">
               {eorzeaTime.hours >= 6 && eorzeaTime.hours < 18 ? (
-                <Sparkles className="w-4 h-4 text-ffxiv-gold-light animate-spin" style={{ animationDuration: '8s' }} />
+                <Sparkles className="w-3.5 h-3.5 text-ffxiv-gold-light animate-spin" style={{ animationDuration: '8s' }} />
               ) : (
-                <Clock className="w-4 h-4 text-sky-450" />
+                <Clock className="w-3.5 h-3.5 text-sky-450" />
               )}
-              <span className="font-mono text-sm font-semibold tracking-wider text-ffxiv-gold-light">
-                {eorzeaTime.formatted}
+              <span className="font-mono text-sm font-bold tracking-wider text-ffxiv-gold-light">
+                ET {eorzeaTime.formatted}
               </span>
             </div>
-            <span className="text-sm text-stone-500 tracking-wider font-medium">艾歐澤亞標準時間 (ET)</span>
+            <div className="text-[11px] text-stone-400 font-mono tracking-wider">
+              LT {localTime}
+            </div>
+            <span className="text-xs text-stone-500 tracking-wider font-medium mt-1.5">時區與時間觀測</span>
           </div>
 
-          {/* Status 3: Local Time */}
-          <div className="border-b lg:border-b-0 lg:border-r border-ffxiv-slate/40 pb-3 lg:pb-0 h-full flex flex-col justify-center items-center text-center lg:px-2">
-            <span className="font-mono text-sm text-stone-200 font-semibold">{localTime}</span>
-            <span className="text-sm text-stone-500 block tracking-wider font-medium">冒險者本地電腦時間</span>
+          {/* Status 3: RP 活動行事曆 */}
+          <div className="border-b lg:border-b-0 lg:border-r border-ffxiv-slate/40 pb-3 lg:pb-0 h-full flex flex-col justify-center items-center text-center lg:px-3">
+            <a
+              href="https://ffxiv-tc-rp-calendar.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#c5a059]/10 hover:bg-[#c5a059]/20 active:scale-95 border border-[#c5a059]/40 hover:border-[#c5a059] rounded-lg text-[#dfc38f] hover:text-white transition-all duration-300 text-xs font-bold tracking-wider hover:shadow-[0_0_12px_rgba(197,160,89,0.3)] shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+            >
+              <Calendar className="w-3.5 h-3.5 text-ffxiv-gold" />
+              <span>RP 活動行事曆 ↗</span>
+            </a>
+            <span className="text-xs text-stone-500 tracking-wider font-medium mt-2">艾歐澤亞近期活動日程</span>
           </div>
 
           {/* Status 4: Core Portal Density Metrics (Total Tools & Use counts) */}
@@ -383,22 +395,31 @@ export default function App() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.4, delay: index * 0.05 }}
-                    className="bg-ffxiv-card rounded-2xl border border-ffxiv-slate/60 hover:border-ffxiv-gold overflow-hidden flex flex-col justify-between group transition-all duration-300 hover:shadow-[0_0_20px_rgba(197,160,89,0.12)] relative pt-2"
+                    className={`bg-ffxiv-card rounded-2xl border border-ffxiv-slate/60 hover:border-ffxiv-gold overflow-hidden flex flex-col justify-between group transition-all duration-300 hover:shadow-[0_0_20px_rgba(197,160,89,0.12)] relative pt-2 ${tool.status === 'maintenance' ? 'opacity-70 saturate-[0.8] hover:border-rose-950/40 hover:shadow-none' : ''}`}
                   >
                     {/* Premium sleek gold gradient top line style accent */}
-                    <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-ffxiv-gold/60 to-transparent opacity-80 group-hover:via-ffxiv-gold-light group-hover:opacity-100 transition-all duration-300" />
+                    <div className={`absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent to-transparent opacity-80 group-hover:opacity-100 transition-all duration-300 ${tool.status === 'maintenance' ? 'via-rose-500/30' : 'via-ffxiv-gold/60 group-hover:via-ffxiv-gold-light'}`} />
 
                     {/* Visual Card Header & Category Badge */}
                     <div className="p-6 pb-2 flex flex-col items-center text-center">
                       <div className="flex items-center justify-center gap-1.5 select-none text-xs font-mono font-semibold tracking-wider uppercase mb-2">
                         <span className={`inline-flex items-center px-4 py-0.5 rounded-full border text-xs gap-1.5 shadow-[0_2px_8px_rgba(0,0,0,0.4)]
-                          ${tool.id === 'rp-pos' 
-                            ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' 
-                            : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                          ${tool.status === 'maintenance'
+                            ? 'bg-rose-500/10 text-rose-400 border-rose-500/20'
+                            : tool.id === 'rp-pos' 
+                              ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' 
+                              : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                           }`}
                         >
-                          <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${tool.id === 'rp-pos' ? 'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]' : 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]'}`} />
-                          {tool.id === 'rp-pos' ? '測試中' : '已上線'}
+                          <span className={`w-1.5 h-1.5 rounded-full animate-pulse 
+                            ${tool.status === 'maintenance'
+                              ? 'bg-rose-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]'
+                              : tool.id === 'rp-pos' 
+                                ? 'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]' 
+                                : 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]'
+                            }`} 
+                          />
+                          {tool.status === 'maintenance' ? '維護中' : tool.id === 'rp-pos' ? '測試中' : '已上線'}
                         </span>
                       </div>
 
@@ -443,7 +464,12 @@ export default function App() {
 
                     {/* Actions button footer */}
                     <div className="p-4 bg-zinc-950/30 flex gap-2 shrink-0 select-none relative">
-                      {tool.defaultUrl ? (
+                      {tool.status === 'maintenance' ? (
+                        <div className="w-full py-2.5 bg-rose-950/10 border border-rose-900/30 text-rose-400/60 text-xs font-semibold tracking-widest rounded flex items-center justify-center gap-2 cursor-not-allowed select-none">
+                          <AlertCircle className="w-3.5 h-3.5 text-rose-400/70" />
+                          <span>系統維護中 ✦ 暫停開放連結</span>
+                        </div>
+                      ) : tool.defaultUrl ? (
                         <>
                           {/* Real External Launch link */}
                           <a

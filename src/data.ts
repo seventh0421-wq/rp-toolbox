@@ -33,8 +33,8 @@ export const INITIAL_TOOLS_DATA: ToolItem[] = [
     longDescription: '專為 FFXIV 繁體中文角色扮演社群打造的近代科技/賽博風格冒險者設定卡（OC Card）生成工具。提供霓虹光暈邊框、復古掃描線與科幻網格背景等視覺主題，支援多種中文字型選擇，並透過 html2canvas 技術將您的原創角色（OC）設定卡一鍵匯出為超高清圖片，完美裝飾您的個人檔案與社群網頁。',
     category: 'roleplay',
     version: 'v2.2.0-STABLE',
-    status: 'stable',
-    statusText: '穩定運作中',
+    status: 'maintenance',
+    statusText: '維護中',
     defaultUrl: 'https://ffxiv-tc-rp-occard.vercel.app/',
     features: [
       '賽博霓虹濾鏡',
