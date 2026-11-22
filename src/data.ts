@@ -52,8 +52,8 @@ export const INITIAL_TOOLS_DATA: ToolItem[] = [
     longDescription: '打造艾歐澤亞最專業的餐飲與娛樂營運體驗！為 FFXIV 角色扮演店（RP Cafe/Bar/Club）提供一站式前台收銀點單解決方案。支持即時商品名錄編輯、購物車計價與 Gil 幣結帳結算，讓您的 RP 店家營運更加富有代入感與專業細緻度。',
     category: 'roleplay',
     version: 'v1.5.0-BETA',
-    status: 'beta',
-    statusText: '封閉測試進行中，請有興趣使用的店主和作者聯繫',
+    status: 'maintenance',
+    statusText: '維護中',
     defaultUrl: 'https://ffxiv-tc-rp-pos.vercel.app/',
     features: [
       '自訂菜單與價格',
